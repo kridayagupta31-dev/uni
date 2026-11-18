@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Batch of ’27 Commits · get posted</title>
+  <meta name="description" content="Batch of 2027 commits. Where we’re all headed." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Graduate&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="app">
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a href="/" class="brand" id="brandLink">
+      <svg class="crest" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--maroon)" stroke="var(--cream)" stroke-width="2.5"/><circle cx="32" cy="32" r="24.5" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="2 2.5"/><text x="32" y="41" text-anchor="middle" font-family="Alfa Slab One, Georgia, serif" font-size="22" fill="var(--cream)">’27</text></svg>
+      <span><b>Batch of ’27</b><em>Commits</em></span>
+    </a>
+    <nav>
+      <a href="#" id="navMine" class="hidden">My graphic</a>
+      <button class="link hidden" id="navLogout">Log out</button>
+      <a id="navIg" class="ig hidden" target="_blank" rel="noreferrer"></a>
+    </nav>
+  </header>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <main>
+    <!-- LANDING -->
+    <div id="landing" class="hidden">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Class of 2027</p>
+          <h1 class="reveal" style="animation-delay:60ms">Where we’re <span class="ink">all</span> headed.</h1>
+          <p class="lede reveal" style="animation-delay:120ms">Create a login with your <strong>school email</strong>, tell us your university and subject, add your cutest baby pic, and we’ll turn it into your official commit graphic for the gram.</p>
+          <ol class="steps reveal" style="animation-delay:180ms">
+            <li><b>1</b><span>Sign up with your school email</span></li>
+            <li><b>2</b><span>Name, subject &amp; university</span></li>
+            <li><b>3</b><span>Drop a baby photo</span></li>
+            <li><b>4</b><span id="stepFour">Get posted on the batch page</span></li>
+          </ol>
+        </div>
+
+        <div class="hero-auth reveal" style="animation-delay:140ms">
+          <div id="authCard" class="auth-card">
+            <div class="tabs" role="tablist">
+              <button class="on" data-tab="signup" role="tab">Create login</button>
+              <button data-tab="login" role="tab">Log in</button>
+            </div>
+            <form id="authForm" class="auth-form" novalidate>
+              <label class="field" id="nameField"><span>Full name</span>
+                <input name="fullName" autocomplete="name" maxlength="80" placeholder="Aadhya Sharma" />
+              </label>
+              <label class="field"><span>School email</span>
+                <input name="email" type="email" autocomplete="email" placeholder="Your school email" required />
+                <small id="emailHint">Only school email addresses can join.</small>
+              </label>
+              <label class="field"><span>Password</span>
+                <input name="password" type="password" minlength="8" placeholder="At least 8 characters" autocomplete="new-password" required />
+              </label>
+              <p id="authError" class="form-error hidden" role="alert"></p>
+              <button class="btn btn-primary" id="authBtn">Create my login</button>
+              <p class="hint hidden" id="forgotHint">Forgot your password? Message the batch page and an admin will reset your account so you can sign up again.</p>
+            </form>
+          </div>
+          <div id="continueCard" class="auth-card auth-continue hidden">
+            <div class="stamp">🎓</div>
+            <h3>You’re logged in</h3>
+            <p>Pick up where you left off. Your graphic builds live as you type.</p>
+            <button class="btn btn-primary" id="continueBtn">Open my graphic →</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="showcase" aria-label="Example graphics">
+        <div class="showcase-head">
+          <h2>Your baby photo. Your school’s colors. Your campus.</h2>
+          <p>Every graphic pulls in the university’s seal, colors and real campus photos automatically.</p>
+        </div>
+        <div class="fan">
+          <div class="sample fan-a"><canvas id="sampleA"></canvas></div>
+          <div class="sample fan-b"><canvas id="sampleB"></canvas></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- BUILDER -->
+    <section id="builder" class="builder hidden">
+      <header class="builder-head reveal">
+        <p class="eyebrow">Step into the class grid</p>
+        <h1>Make your commit graphic</h1>
+        <p class="lede">Fill in your details, drop in your cutest baby photo, and watch your post build itself.</p>
+      </header>
+      <div class="builder-grid">
+        <div class="builder-form reveal" style="animation-delay:80ms">
+          <fieldset>
+            <legend><span>01</span> You</legend>
+            <label class="field"><span>Name on the graphic</span>
+              <input id="fName" maxlength="40" placeholder="Aadhya Sharma" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>02</span> Where you’re headed</legend>
+            <div class="uni-picker field" id="uniPicker">
+              <span>University</span>
+              <input id="fUni" placeholder="Start typing, e.g. NYU, Warwick, UCSD" role="combobox" aria-expanded="false" aria-controls="uniList" aria-autocomplete="list" autocomplete="off" />
+              <small id="uniNote" class="hidden"></small>
+              <ul class="uni-list hidden" id="uniList" role="listbox"></ul>
+            </div>
+            <label class="field"><span>Subject / major</span>
+              <input id="fSubject" list="subjects" maxlength="40" placeholder="Computer Science" />
+              <datalist id="subjects"></datalist>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>03</span> Baby photo</legend>
+            <div class="dropzone" id="dropzone" role="button" tabindex="0">
+              <div class="dz-icon" id="dzIcon">👶</div>
+              <img id="dzImg" class="hidden" alt="" />
+              <div><strong id="dzTitle">Drop a baby photo</strong><span id="dzSub">or tap to choose · JPG / PNG</span></div>
+              <input id="fBaby" type="file" accept="image/*" hidden />
+            </div>
+            <p id="babyError" class="form-error hidden"></p>
+            <div class="zoom hidden" id="zoomRow">
+              <label for="fZoom">Zoom</label>
+              <input id="fZoom" type="range" min="1" max="3" step="0.01" value="1" />
+              <button type="button" class="chip" id="zoomReset">Reset</button>
+            </div>
+            <p class="hint hidden" id="dragHint">Drag the photo in the preview to reposition it.</p>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>04</span> Style it</legend>
+            <div class="style-row">
+              <label class="swatch"><input type="color" id="fPrimary" value="#7a1f2b" /><i id="swPrimary"></i>Frame</label>
+              <label class="swatch"><input type="color" id="fAccent" value="#f2c14e" /><i id="swAccent"></i>Lettering</label>
+              <button type="button" class="chip" id="shuffleBtn" disabled>⟳ Shuffle backdrop</button>
+            </div>
+            <div class="segmented" role="radiogroup" aria-label="Badge style">
+              <button type="button" role="radio" data-badge="seal" class="on">Seal + name</button>
+              <button type="button" role="radio" data-badge="wordmark" disabled title="No official logo found for this school">Official logo</button>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>05</span> Okay to post?</legend>
+            <label class="consent">
+              <input type="checkbox" id="fConsent" />
+              <span>I agree to my graphic, name, university and subject being posted publicly on the batch Instagram page.</span>
+            </label>
+          </fieldset>
+
+          <p id="submitError" class="form-error hidden" role="alert"></p>
+          <div class="submit-row">
+            <button class="btn btn-primary btn-lg" id="submitBtn" disabled>Submit to get posted</button>
+            <p class="hint" id="needHint"></p>
+            <button class="link hidden" id="cancelEdit">Cancel</button>
+          </div>
+        </div>
+
+        <div class="preview reveal" style="animation-delay:160ms">
+          <div class="preview-sticky">
+            <div class="preview-frame" id="previewFrame">
+              <canvas id="preview" class="preview-canvas" aria-label="Your commit graphic"></canvas>
+              <div class="preview-loading hidden" id="previewLoading"></div>
+            </div>
+            <p class="preview-note">Live preview · 1080 × 1350 · Instagram-ready</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBMITTED -->
+    <section id="submitted" class="submitted hidden">
+      <div class="submitted-copy reveal">
+        <span class="pill" id="sPill"></span>
+        <h1 id="sTitle"></h1>
+        <p class="lede" id="sLede"></p>
+        <dl class="facts">
+          <div><dt>Name</dt><dd id="sName"></dd></div>
+          <div><dt>University</dt><dd id="sUni"></dd></div>
+          <div><dt>Subject</dt><dd id="sSubject"></dd></div>
+          <div><dt>Okay to post</dt><dd>Yes</dd></div>
+        </dl>
+        <div class="row">
+          <button class="btn btn-primary" id="sDownload">Download graphic</button>
+          <button class="btn btn-ghost" id="sEdit">Edit my graphic</button>
+        </div>
+      </div>
+      <div class="submitted-art reveal" style="animation-delay:120ms"><img id="sImg" alt="Your commit graphic" /></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Class of 2027</span>
+    <span id="footIg">Made for the grid with ♥</span>
+  </footer>
+</div>
+
+<script src="/config.js"></script>
+<script src="/graphic.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

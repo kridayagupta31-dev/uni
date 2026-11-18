@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Posting desk · Batch of ’27</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Graduate&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="app">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a href="/" class="brand">
+      <svg class="crest" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--maroon)" stroke="var(--cream)" stroke-width="2.5"/><circle cx="32" cy="32" r="24.5" fill="none" stroke="var(--gold)" stroke-width="1" stroke-dasharray="2 2.5"/><text x="32" y="41" text-anchor="middle" font-family="Alfa Slab One, Georgia, serif" font-size="22" fill="var(--cream)">’27</text></svg>
+      <span><b>Batch of ’27</b><em>Posting desk</em></span>
+    </a>
+    <nav>
+      <span class="muted hidden" id="who"></span>
+      <button class="link hidden" id="logout">Log out</button>
+    </nav>
+  </header>
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <main>
+    <!-- separate admin login -->
+    <section id="loginView" class="admin-login hidden">
+      <div class="auth-card">
+        <form id="loginForm" class="auth-form">
+          <div class="stamp" style="margin:0 auto">🔒</div>
+          <h3 style="text-align:center">Admin login</h3>
+          <p class="hint" style="text-align:center">This is separate from the student login. You need an admin email and the admin code.</p>
+          <label class="field"><span>Admin email</span>
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label class="field"><span>Admin code</span>
+            <input name="code" type="password" autocomplete="current-password" required />
+          </label>
+          <p id="loginError" class="form-error hidden" role="alert"></p>
+          <button class="btn btn-primary" id="loginBtn">Open posting desk</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- posting desk -->
+    <section id="deskView" class="admin hidden">
+      <header class="admin-head reveal">
+        <div>
+          <p class="eyebrow">Posting desk</p>
+          <h1>Submissions</h1>
+        </div>
+        <div class="row">
+          <button class="btn btn-ghost" id="csvBtn">Export CSV</button>
+          <button class="btn btn-ghost" id="zipBtn">Download all (.zip)</button>
+          <button class="btn btn-ghost" id="refreshBtn">Refresh</button>
+        </div>
+      </header>
+
+      <div class="stats reveal" style="animation-delay:60ms">
+        <div><strong id="stAll">0</strong><span>total</span></div>
+        <div><strong id="stPending">0</strong><span>to post</span></div>
+        <div><strong id="stPosted">0</strong><span>posted</span></div>
+        <div><strong id="stWaiting">0</strong><span>signed up, no graphic</span></div>
+      </div>
+
+      <div class="admin-tools reveal" style="animation-delay:100ms">
+        <div class="segmented" id="filters">
+          <button data-f="pending" class="on">To post</button>
+          <button data-f="posted">Posted</button>
+          <button data-f="all">All</button>
+        </div>
+        <input class="search" id="search" placeholder="Search name, school, subject…" />
+      </div>
+
+      <p id="deskError" class="form-error hidden"></p>
+      <div id="grid" class="admin-grid"></div>
+
+      <section class="accounts">
+        <h2>Accounts</h2>
+        <p class="hint" style="margin-bottom:12px">Removing an account lets that person sign up again (use this if someone forgets their password). Their submission stays unless you delete it above.</p>
+        <table class="acc-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Signed up</th><th>Graphic</th><th></th></tr></thead>
+          <tbody id="accRows"></tbody>
+        </table>
+      </section>
+    </section>
+  </main>
+  <footer class="foot"><span>Class of 2027</span><span>Admins only</span></footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="/config.js"></script>
+<script src="/admin.js"></script>
+</body>
+</html>
