@@ -5,7 +5,7 @@ export default {
   ALLOWED_DOMAIN: "kchigh.com",
 
   // emails allowed into /admin, comma-separated
-  ADMIN_EMAILS: "abc@kchigh.com",
+  ADMIN_EMAILS: "kridayagupta@kchigh.com",
 
   // the code asked for on the admin login. Change it to anything you like.
   ADMIN_CODE: "batch27-feebf0",
