@@ -8,7 +8,15 @@
 
 import { getStore } from "@netlify/blobs";
 import crypto from "node:crypto";
-import SETTINGS from "./settings.mjs";
+// ---- SITE SETTINGS (edit these) ----
+// Keep the GitHub repo PRIVATE: the admin code and secret are below.
+const SETTINGS = {
+  ALLOWED_DOMAIN: "kchigh.com",       // school email domain, no @
+  ADMIN_EMAILS: "kridayagupta@kchigh.com",   // who can open /admin, comma-separated
+  ADMIN_CODE: "batch27-feebf0",       // admin login code, change if you like
+  SESSION_SECRET: "MON8DPLMUpVU_WJmZl3rmRhidgM28OGey_u-JeGB9BXhOoPW",
+};
+const CODE_VERSION = "v3";
 
 export const config = { path: "/api/*" };
 
@@ -211,12 +219,14 @@ async function route(req) {
   const method = req.method.toUpperCase();
   const body = async () => (method === "GET" ? {} : await req.json().catch(() => ({})));
 
+  if (method === "GET" && path === "version") return json({ version: CODE_VERSION });
+
   // ----- student accounts -----
   if (method === "POST" && path === "signup") {
     const b = await body();
     const email = clean(b.email, 120).toLowerCase();
     const domain = (env("ALLOWED_DOMAIN") || "").toLowerCase().replace(/^@/, "").trim();
-    if (!domain) fail("Server not set up yet (ALLOWED_DOMAIN missing).", 500);
+    if (!domain) fail(`Server not set up yet (ALLOWED_DOMAIN missing, ${CODE_VERSION}).`, 500);
     if (!/^[^\s@]+@[^\s@]+$/.test(email) || !email.endsWith(`@${domain}`))
       fail("That isn't a school email. Use your school email address.");
     const name = clean(b.fullName, 80);
